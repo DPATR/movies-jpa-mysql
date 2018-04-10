@@ -18,7 +18,7 @@ import com.lmig.movies.repository.MovieRepository;
 @RunWith(SpringRunner.class)
 //@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class MoviesIntegrationTests {
+public class MovieIntegrationTests {
 
         Integer saveId;
         

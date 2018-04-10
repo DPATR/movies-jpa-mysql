@@ -12,9 +12,10 @@ import javax.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.lmig.movies.exception.ResourceNotFoundException;
+import com.lmig.movies.model.Director;
 import com.lmig.movies.model.Movie;
+import com.lmig.movies.repository.DirectorRepository;
 import com.lmig.movies.repository.MovieRepository;
-
 
 @RestController
 @CrossOrigin
@@ -24,9 +25,17 @@ public class MovieController {
     @Autowired
     MovieRepository movieRepository;
     
+    @Autowired
+    DirectorRepository directorRepository;
+    
     @GetMapping("/movies")
     public List<Movie> getAllMovies() {
         return movieRepository.findAll();
+    }
+    
+    @GetMapping("/directors")
+    public List<Director> getAllDirectors() {
+        return directorRepository.findAll();
     }
     
     @GetMapping("/movies/{id}")
@@ -35,13 +44,24 @@ public class MovieController {
                 .orElseThrow(() -> new ResourceNotFoundException("Movie", "id", id));
     }
     
+    @GetMapping("/directors/{id}")
+    public Director getDirectorById(@PathVariable(value = "id") Integer id) {
+        return directorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Director", "id", id));
+    }
+    
     @PostMapping("/movies")
     public Movie createMovie(@Valid @RequestBody Movie movie) {
         return movieRepository.save(movie);
     }
     
-  //title,year,image_url,certificate,runtime,imdb_rating,description,metascore,votes,gross
-    //'Tomb Raider',2018,'https://ia.media-imdb.com/images/M/MV5BOTY4NDcyZGQtYmVlNy00ODgwLTljYTMtYzQ2OTE3NDhjODMwXkEyXkFqcGdeQXVyNzYzODM3Mzg@._V1_UX67_CR0,0,67,98_AL_.jpg','PG-13',118,6.8,'Lara Croft, the fiercely independent daughter of a missing adventurer, must push herself beyond her limits when she finds herself on the island where her father disappeared.',48,42587,52150000
+    @PostMapping("/directors")
+    public Director createDirector(@Valid @RequestBody Director director) {
+        return directorRepository.save(director);
+    }
+    
+  //name,about
+  //'John Smith','John'
     
     @PutMapping("/movies/{id}")
     public Movie updateMovie(@PathVariable(value = "id") Integer id,
@@ -64,12 +84,35 @@ public class MovieController {
         return updatedMovie;
     }
     
+    @PutMapping("/directors/{id}")
+    public Director updateDirector(@PathVariable(value = "id") Integer id,
+                                           @Valid @RequestBody Director directorDetails) {
+
+        Director director = directorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Director", "id", id));
+
+        director.setName(directorDetails.getName());
+        director.setAbout(directorDetails.getAbout());
+        Director updatedDirector = directorRepository.save(director);
+        return updatedDirector;
+    }
+    
     @DeleteMapping("/movies/{id}")
     public ResponseEntity<?> deleteMovie(@PathVariable(value = "id") Integer id) {
         Movie movie = movieRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie", "id", id));
 
         movieRepository.delete(movie);
+        //Sets 204 status
+        return ResponseEntity.ok().build();
+    }
+    
+    @DeleteMapping("/directors/{id}")
+    public ResponseEntity<?> deleteDirector(@PathVariable(value = "id") Integer id) {
+        Director director = directorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Director", "id", id));
+
+        directorRepository.delete(director);
         //Sets 204 status
         return ResponseEntity.ok().build();
     }
