@@ -37,7 +37,6 @@ public class MovieIntegrationTests {
             System.out.println("# of movies = " + movie1.size());
         }
         
- 
         @Test
         public void testCreate() {
             System.out.println("in create");

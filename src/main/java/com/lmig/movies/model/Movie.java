@@ -48,9 +48,7 @@ public class Movie {
     public Integer getYear() {
         return year;
     }
-    /**
-     * @param year the year to set
-     */
+   
     public void setYear(Integer year) {
         this.year = year;
     }

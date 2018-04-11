@@ -50,6 +50,12 @@ public class MovieController {
                 .orElseThrow(() -> new ResourceNotFoundException("Director", "id", id));
     }
     
+//    @GetMapping("movies/{title}")
+//    public List<Movie> getMovieByTitle(@PathVariable(value = "title") String title){
+//    public List<Movie> movie = movieRepository.findByTitle("Gladiator");
+//        return movieRepository.findByTitle("Gladiator");
+//    }
+    
     @PostMapping("/movies")
     public Movie createMovie(@Valid @RequestBody Movie movie) {
         return movieRepository.save(movie);
