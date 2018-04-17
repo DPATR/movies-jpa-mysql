@@ -6,10 +6,19 @@
 
 package com.lmig.movies.model;
 
+import java.util.ArrayList;
+//import java.util.HashSet;
+import java.util.List;
+//import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,11 +37,29 @@ public class Movie {
     private Integer metascore;
     private Integer votes;
     private Integer gross;
- 
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "movies_directors",
+        joinColumns = @JoinColumn(name = "movies_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "directors_id", referencedColumnName = "id"))
+    private List<Director> director = new ArrayList<Director>();
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "movies_stars",
+        joinColumns = @JoinColumn(name = "movies_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "stars_id", referencedColumnName = "id"))
+    private List<Star> star = new ArrayList<Star>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "movies_genres",
+        joinColumns = @JoinColumn(name = "movies_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "genres_id", referencedColumnName = "id"))
+    private List<Genre> genre = new ArrayList<Genre>();
+    
     public Integer getId() {
         return id;
     }
- 
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -40,7 +67,7 @@ public class Movie {
     public String getTitle() {
         return title;
     }
-  
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -48,9 +75,7 @@ public class Movie {
     public Integer getYear() {
         return year;
     }
-    /**
-     * @param year the year to set
-     */
+
     public void setYear(Integer year) {
         this.year = year;
     }
@@ -62,11 +87,11 @@ public class Movie {
     public void setImage_url(String image_url) {
         this.image_url = image_url;
     }
- 
+
     public String getCertificate() {
         return certificate;
     }
-  
+
     public void setCertificate(String certificate) {
         this.certificate = certificate;
     }
@@ -78,7 +103,7 @@ public class Movie {
     public void setRuntime(Integer runtime) {
         this.runtime = runtime;
     }
-
+    
     public Float getImdb_rating() {
         return imdb_rating;
     }
@@ -94,7 +119,7 @@ public class Movie {
     public void setDescription(String description) {
         this.description = description;
     }
- 
+
     public Integer getMetascore() {
         return metascore;
     }
@@ -118,5 +143,29 @@ public class Movie {
     public void setGross(Integer gross) {
         this.gross = gross;
     }
-      
+
+    public List<Director> getDirector() {
+        return director;
+    }
+
+    public void setDirector(List<Director> director) {
+        this.director = director;
+    }
+    
+    public List<Star> getStar() {
+        return star;
+    }
+
+    public void setStar(List<Star> star) {
+        this.star = star;
+    }
+    
+    public List<Genre> getGenre() {
+        return genre;
+    }
+
+    public void setGenre(List<Genre> genre) {
+        this.genre = genre;
+    }
+
 }

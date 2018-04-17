@@ -10,58 +10,58 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 //import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.lmig.movies.model.Director;
+import com.lmig.movies.model.Star;
 //import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.lmig.movies.repository.DirectorRepository;
+import com.lmig.movies.repository.StarRepository;
 
 @RunWith(SpringRunner.class)
 //@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class DirectorIntegrationTests {
+public class StarIntegrationTests {
     
     Integer saveId;
     
     @Autowired
-    private DirectorRepository directorRepository;
+    private StarRepository starRepository;
     
     @Before
     public void testFindAll1() {
         System.out.println("in before");
-        List<Director> director1 = directorRepository.findAll();
+        List<Star> star1 = starRepository.findAll();
         //JUNIT assertion:
-        assertTrue(director1.size() == 11);
+        assertTrue(star1.size() == 28);
         //Hamcrest assertion:
         //assertThat(note1.size(), is(greaterThanOrEqualTo(0)));
         //assertThat(note1.size(), is(equalTo(2)));
-        System.out.println("# of directors = " + director1.size());
+        System.out.println("# of stars = " + star1.size());
     }
     
 
     @Test
     public void testCreate() {
         System.out.println("in create");
-        Director director2 = new Director();
-        director2.setName("Junit Director Integration Test");
-        director2.setAbout("Junit Director");
-        Director savedDirector2 = directorRepository.save(director2);
-        System.out.println("savedDirector2 = " + savedDirector2.getId() + " " + savedDirector2.getName() + " " + savedDirector2.getAbout());
-        saveId = savedDirector2.getId();
-        List<Director> director3 = directorRepository.findAll();
-        assertTrue(director3.size() == 12);
-        System.out.println("# of directors = " + director3.size());
+        Star star2 = new Star();
+        star2.setName("Junit Star Integration Test");
+        star2.setAbout("Junit Star");
+        Star savedStar2 = starRepository.save(star2);
+        System.out.println("savedStar2 = " + savedStar2.getId() + " " + savedStar2.getName() + " " + savedStar2.getAbout());
+        saveId = savedStar2.getId();
+        List<Star> star3 = starRepository.findAll();
+        assertTrue(star3.size() == 29);
+        System.out.println("# of stars = " + star3.size());
         System.out.println("in delete");
-        directorRepository.deleteById(saveId);  
+        starRepository.deleteById(saveId);  
      }
     
      @After
      public void testFindAll2() {
         System.out.println("in after");
-        List<Director> director4 = directorRepository.findAll();
-        assertTrue(director4.size() == 11);
+        List<Star> star4 = starRepository.findAll();
+        assertTrue(star4.size() == 28);
         //Hamcrest assertion:
         //assertThat(wrecks.size(), is(greaterThanOrEqualTo(0)));
         //assertThat(wrecks2.size(), is(equalTo(2)));
-        System.out.println("# of directors = " + director4.size());
+        System.out.println("# of stars = " + star4.size());
      }
 
 }
