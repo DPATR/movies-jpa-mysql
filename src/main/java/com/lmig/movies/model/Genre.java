@@ -15,21 +15,21 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "directors")
-public class Director {
+@Table(name = "genres")
+public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private String about;
     
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinTable(name = "movies_directors",
-        joinColumns = @JoinColumn(name = "directors_id", referencedColumnName = "id"),
+    @JoinTable(name = "movies_genres",
+        joinColumns = @JoinColumn(name = "genres_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "movies_id", referencedColumnName = "id"))
     private List<Movie> movies = new ArrayList<Movie>();
 
+    
     public Integer getId() {
         return id;
     }
@@ -46,14 +46,6 @@ public class Director {
         this.name = name;
     }
 
-    public String getAbout() {
-        return about;
-    }
-
-    public void setAbout(String about) {
-        this.about = about;
-    }
-
     public List<Movie> getMovies() {
         return movies;
     }
@@ -61,5 +53,5 @@ public class Director {
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
     }
-    
+     
 }

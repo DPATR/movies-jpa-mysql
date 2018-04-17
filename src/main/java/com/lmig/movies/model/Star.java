@@ -15,8 +15,8 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "directors")
-public class Director {
+@Table(name = "stars")
+public class Star {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -25,8 +25,8 @@ public class Director {
     
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinTable(name = "movies_directors",
-        joinColumns = @JoinColumn(name = "directors_id", referencedColumnName = "id"),
+    @JoinTable(name = "movies_stars",
+        joinColumns = @JoinColumn(name = "stars_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "movies_id", referencedColumnName = "id"))
     private List<Movie> movies = new ArrayList<Movie>();
 
@@ -60,6 +60,5 @@ public class Director {
 
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
-    }
-    
+    }   
 }

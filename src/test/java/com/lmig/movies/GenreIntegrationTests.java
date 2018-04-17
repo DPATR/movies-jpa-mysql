@@ -10,58 +10,56 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 //import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.lmig.movies.model.Director;
+import com.lmig.movies.model.Genre;
 //import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.lmig.movies.repository.DirectorRepository;
+import com.lmig.movies.repository.GenreRepository;
 
 @RunWith(SpringRunner.class)
 //@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class DirectorIntegrationTests {
+public class GenreIntegrationTests {
     
     Integer saveId;
     
     @Autowired
-    private DirectorRepository directorRepository;
+    private GenreRepository genreRepository;
     
     @Before
     public void testFindAll1() {
         System.out.println("in before");
-        List<Director> director1 = directorRepository.findAll();
+        List<Genre> genre1 = genreRepository.findAll();
         //JUNIT assertion:
-        assertTrue(director1.size() == 11);
+        assertTrue(genre1.size() == 17);
         //Hamcrest assertion:
         //assertThat(note1.size(), is(greaterThanOrEqualTo(0)));
         //assertThat(note1.size(), is(equalTo(2)));
-        System.out.println("# of directors = " + director1.size());
+        System.out.println("# of genres = " + genre1.size());
     }
     
-
     @Test
     public void testCreate() {
         System.out.println("in create");
-        Director director2 = new Director();
-        director2.setName("Junit Director Integration Test");
-        director2.setAbout("Junit Director");
-        Director savedDirector2 = directorRepository.save(director2);
-        System.out.println("savedDirector2 = " + savedDirector2.getId() + " " + savedDirector2.getName() + " " + savedDirector2.getAbout());
-        saveId = savedDirector2.getId();
-        List<Director> director3 = directorRepository.findAll();
-        assertTrue(director3.size() == 12);
-        System.out.println("# of directors = " + director3.size());
+        Genre genre2 = new Genre();
+        genre2.setName("Junit Genre Integration Test");
+        Genre savedGenre2 = genreRepository.save(genre2);
+        System.out.println("savedGenre2 = " + savedGenre2.getId() + " " + savedGenre2.getName());
+        saveId = savedGenre2.getId();
+        List<Genre> genre3 = genreRepository.findAll();
+        assertTrue(genre3.size() == 18);
+        System.out.println("# of genres = " + genre3.size());
         System.out.println("in delete");
-        directorRepository.deleteById(saveId);  
+        genreRepository.deleteById(saveId);  
      }
     
      @After
      public void testFindAll2() {
         System.out.println("in after");
-        List<Director> director4 = directorRepository.findAll();
-        assertTrue(director4.size() == 11);
+        List<Genre> genre4 = genreRepository.findAll();
+        assertTrue(genre4.size() == 17);
         //Hamcrest assertion:
         //assertThat(wrecks.size(), is(greaterThanOrEqualTo(0)));
         //assertThat(wrecks2.size(), is(equalTo(2)));
-        System.out.println("# of directors = " + director4.size());
+        System.out.println("# of genres = " + genre4.size());
      }
 
 }

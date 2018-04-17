@@ -30,7 +30,7 @@ public class MovieIntegrationTests {
             System.out.println("in before");
             List<Movie> movie1 = movieRepository.findAll();
             //JUNIT assertion:
-            assertTrue(movie1.size() == 5);
+            assertTrue(movie1.size() == 6);
             //Hamcrest assertion:
             //assertThat(note1.size(), is(greaterThanOrEqualTo(0)));
             //assertThat(note1.size(), is(equalTo(2)));
@@ -55,7 +55,7 @@ public class MovieIntegrationTests {
             System.out.println("savedMovie2 = " + savedMovie2.getId() + " " + savedMovie2.getTitle() + " " + savedMovie2.getYear());
             saveId = savedMovie2.getId();
             List<Movie> movie3 = movieRepository.findAll();
-            assertTrue(movie3.size() == 6);
+            assertTrue(movie3.size() == 7);
             System.out.println("# of movies = " + movie3.size());
             System.out.println("in delete");
             movieRepository.deleteById(saveId);  
@@ -65,7 +65,7 @@ public class MovieIntegrationTests {
          public void testFindAll2() {
             System.out.println("in after");
             List<Movie> movie4 = movieRepository.findAll();
-            assertTrue(movie4.size() == 5);
+            assertTrue(movie4.size() == 6);
             //Hamcrest assertion:
             //assertThat(wrecks.size(), is(greaterThanOrEqualTo(0)));
             //assertThat(wrecks2.size(), is(equalTo(2)));
