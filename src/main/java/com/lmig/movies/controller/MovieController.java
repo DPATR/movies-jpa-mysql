@@ -43,6 +43,16 @@ public class MovieController {
         return movieRepository.findAll();
     }
     
+    @GetMapping("/movies-by-id")
+    public List<Movie> getAllMoviesById() {
+        return movieRepository.findAllByOrderByIdDesc();
+    }
+    
+    @GetMapping("/movies-by-metascore")
+    public List<Movie> getAllMoviesByMetascore() {
+        return movieRepository.findAllByOrderByMetascoreDesc();
+    }
+    
     @GetMapping("/directors")
     public List<Director> getAllDirectors() {
         return directorRepository.findAll();

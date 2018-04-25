@@ -29,7 +29,7 @@ public class GenreIntegrationTests {
         System.out.println("in before");
         List<Genre> genre1 = genreRepository.findAll();
         //JUNIT assertion:
-        assertTrue(genre1.size() == 17);
+        assertTrue(genre1.size() == 19);
         //Hamcrest assertion:
         //assertThat(note1.size(), is(greaterThanOrEqualTo(0)));
         //assertThat(note1.size(), is(equalTo(2)));
@@ -45,7 +45,7 @@ public class GenreIntegrationTests {
         System.out.println("savedGenre2 = " + savedGenre2.getId() + " " + savedGenre2.getName());
         saveId = savedGenre2.getId();
         List<Genre> genre3 = genreRepository.findAll();
-        assertTrue(genre3.size() == 18);
+        assertTrue(genre3.size() == 20);
         System.out.println("# of genres = " + genre3.size());
         System.out.println("in delete");
         genreRepository.deleteById(saveId);  
@@ -55,7 +55,7 @@ public class GenreIntegrationTests {
      public void testFindAll2() {
         System.out.println("in after");
         List<Genre> genre4 = genreRepository.findAll();
-        assertTrue(genre4.size() == 17);
+        assertTrue(genre4.size() == 19);
         //Hamcrest assertion:
         //assertThat(wrecks.size(), is(greaterThanOrEqualTo(0)));
         //assertThat(wrecks2.size(), is(equalTo(2)));
