@@ -10,11 +10,17 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
     void deleteById(Integer Id);
     
-//    List<Movie> findByTitle(String title);
-//    public List<Movie> findAllByOrderByimdb_ratingDesc();
-//    List<Movie> findAllByOrderByimdb_ratingDesc();
-//    List<Movie> findAllByOrderByidAsc();
     List<Movie> findAllByOrderByIdDesc();
-    //List<Movie> findByLastnameOrderByFirstnameDesc(String lastname);
+  
     List<Movie> findAllByOrderByMetascoreDesc();
+    
+    List<Movie> findAllByOrderByCertificateAsc();
+    
+    List<Movie> findByCertificate(String certficate);
+    
+    List<Movie> findByYear(Integer year);
+      
+    Movie findByTitle(String title);
+    
+    List<Movie> findByTitleContaining(String title);
 }

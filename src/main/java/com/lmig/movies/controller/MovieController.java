@@ -43,16 +43,6 @@ public class MovieController {
         return movieRepository.findAll();
     }
     
-    @GetMapping("/movies-by-id")
-    public List<Movie> getAllMoviesById() {
-        return movieRepository.findAllByOrderByIdDesc();
-    }
-    
-    @GetMapping("/movies-by-metascore")
-    public List<Movie> getAllMoviesByMetascore() {
-        return movieRepository.findAllByOrderByMetascoreDesc();
-    }
-    
     @GetMapping("/directors")
     public List<Director> getAllDirectors() {
         return directorRepository.findAll();
@@ -80,7 +70,42 @@ public class MovieController {
                 .orElseThrow(() -> new ResourceNotFoundException("Movie", "id", id));
         return movie.getDirector(); 
     }
-  
+    
+    @GetMapping("/movies-by-id")
+    public List<Movie> getAllMoviesById() {
+        return movieRepository.findAllByOrderByIdDesc();
+    }
+    
+    @GetMapping("/movies-by-metascore")
+    public List<Movie> getAllMoviesByMetascore() {
+        return movieRepository.findAllByOrderByMetascoreDesc();
+    }
+    
+    @GetMapping("/movies-by-certificate")
+    public List<Movie> getAllMoviesByCertificate() {
+        return movieRepository.findAllByOrderByCertificateAsc();
+    }
+    
+    @GetMapping("/movie-by-one-certificate/{certificate}")
+    public List<Movie> getMoviesByCertificate(@PathVariable(value = "certificate") String certificate) {
+        return movieRepository.findByCertificate(certificate);
+    }
+    
+    @GetMapping("/movie-by-title/{title}")
+    public Movie getMovieByTitle(@PathVariable(value = "title") String title) {
+        return movieRepository.findByTitle(title);
+    }
+    
+    @GetMapping("/movies-by-title-containing/{title}")
+    public List<Movie> getMovieByTitleContaining(@PathVariable(value = "title") String title) {
+        return movieRepository.findByTitleContaining(title);
+    }
+    
+    @GetMapping("/movies-by-one-year/{year}")
+    public List<Movie> getMoviesByYear(@PathVariable(value = "year") Integer year) {
+        return movieRepository.findByYear(year);
+    }
+    
     @GetMapping("/directors/{id}")
     public Director getDirectorById(@PathVariable(value = "id") Integer id) {
         return directorRepository.findById(id)
@@ -92,6 +117,16 @@ public class MovieController {
         Director director = directorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Director", "id", id));
         return director.getMovies(); 
+    }
+    
+    //Retrieve movies by Director name
+    @GetMapping("/directors/movies/{name}")
+    public List<Movie> getDirectorMoviesByName(@PathVariable(value = "name") String name) {
+        Director director1 = directorRepository.findByName(name);
+        Integer directorId = director1.getId();
+        Director director2 = directorRepository.findById(directorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Director", "id", directorId));
+        return director2.getMovies(); 
     }
     
     @GetMapping("/stars/{id}")
@@ -107,6 +142,16 @@ public class MovieController {
         return star.getMovies(); 
     }
     
+    //Retrieve movies by Star name
+    @GetMapping("/stars/movies/{name}")
+    public List<Movie> getStarMoviesByName(@PathVariable(value = "name") String name) {
+        Star star1 = starRepository.findByName(name);
+        Integer starId = star1.getId();
+        Star star2 = starRepository.findById(starId)
+                .orElseThrow(() -> new ResourceNotFoundException("Star", "id", starId));
+        return star2.getMovies(); 
+    }
+    
     @GetMapping("/genres/{id}")
     public Genre getGenreById(@PathVariable(value = "id") Integer id) {
         return genreRepository.findById(id)
@@ -118,6 +163,16 @@ public class MovieController {
         Genre genre = genreRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Genre", "id", id));
         return genre.getMovies(); 
+    }
+    
+    //Retrieve movies by Genre name
+    @GetMapping("/genres/movies/{name}")
+    public List<Movie> getGenreMoviesByName(@PathVariable(value = "name") String name) {
+        Genre genre1 = genreRepository.findByName(name);
+        Integer genreId = genre1.getId();
+        Genre genre2 = genreRepository.findById(genreId)
+                .orElseThrow(() -> new ResourceNotFoundException("Genre", "id", genreId));
+        return genre2.getMovies(); 
     }
     
     @PostMapping("/movies")
