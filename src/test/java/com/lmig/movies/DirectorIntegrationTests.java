@@ -20,6 +20,9 @@ import com.lmig.movies.repository.DirectorRepository;
 public class DirectorIntegrationTests {
     
     Integer saveId;
+    Integer dir1Count;
+    Integer dir3Count;
+    Integer dir4Count;
     
     @Autowired
     private DirectorRepository directorRepository;
@@ -29,7 +32,7 @@ public class DirectorIntegrationTests {
         System.out.println("in before");
         List<Director> director1 = directorRepository.findAll();
         //JUNIT assertion:
-        assertTrue(director1.size() == 11);
+        dir1Count = director1.size();
         //Hamcrest assertion:
         //assertThat(note1.size(), is(greaterThanOrEqualTo(0)));
         //assertThat(note1.size(), is(equalTo(2)));
@@ -47,7 +50,8 @@ public class DirectorIntegrationTests {
         System.out.println("savedDirector2 = " + savedDirector2.getId() + " " + savedDirector2.getName() + " " + savedDirector2.getAbout());
         saveId = savedDirector2.getId();
         List<Director> director3 = directorRepository.findAll();
-        assertTrue(director3.size() == 12);
+        dir3Count = director3.size();
+        assertTrue(dir3Count == (dir1Count + 1));
         System.out.println("# of directors = " + director3.size());
         System.out.println("in delete");
         directorRepository.deleteById(saveId);  
@@ -57,7 +61,8 @@ public class DirectorIntegrationTests {
      public void testFindAll2() {
         System.out.println("in after");
         List<Director> director4 = directorRepository.findAll();
-        assertTrue(director4.size() == 11);
+        dir4Count = director4.size();
+        assertTrue(dir4Count == dir1Count);
         //Hamcrest assertion:
         //assertThat(wrecks.size(), is(greaterThanOrEqualTo(0)));
         //assertThat(wrecks2.size(), is(equalTo(2)));

@@ -71,6 +71,13 @@ public class MovieController {
         return movie.getDirector(); 
     }
     
+    @GetMapping("/movies/{id}/stars")
+    public List<Star> getMovieStars(@PathVariable(value = "id") Integer id) {
+        Movie movie = movieRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Movie", "id", id));
+        return movie.getStar(); 
+    }
+    
     @GetMapping("/movies-by-id")
     public List<Movie> getAllMoviesById() {
         return movieRepository.findAllByOrderByIdDesc();
@@ -96,6 +103,7 @@ public class MovieController {
         return movieRepository.findByTitle(title);
     }
     
+    //Retrieve movies with search by partial Title name
     @GetMapping("/movies-by-title-containing/{title}")
     public List<Movie> getMovieByTitleContaining(@PathVariable(value = "title") String title) {
         return movieRepository.findByTitleContaining(title);

@@ -20,6 +20,9 @@ import com.lmig.movies.repository.StarRepository;
 public class StarIntegrationTests {
     
     Integer saveId;
+    Integer star1Count;
+    Integer star3Count;
+    Integer star4Count;
     
     @Autowired
     private StarRepository starRepository;
@@ -29,7 +32,7 @@ public class StarIntegrationTests {
         System.out.println("in before");
         List<Star> star1 = starRepository.findAll();
         //JUNIT assertion:
-        assertTrue(star1.size() == 28);
+        star1Count = star1.size();
         //Hamcrest assertion:
         //assertThat(note1.size(), is(greaterThanOrEqualTo(0)));
         //assertThat(note1.size(), is(equalTo(2)));
@@ -47,7 +50,8 @@ public class StarIntegrationTests {
         System.out.println("savedStar2 = " + savedStar2.getId() + " " + savedStar2.getName() + " " + savedStar2.getAbout());
         saveId = savedStar2.getId();
         List<Star> star3 = starRepository.findAll();
-        assertTrue(star3.size() == 29);
+        star3Count = star3.size();
+        assertTrue(star3Count == (star1Count + 1));
         System.out.println("# of stars = " + star3.size());
         System.out.println("in delete");
         starRepository.deleteById(saveId);  
@@ -57,7 +61,8 @@ public class StarIntegrationTests {
      public void testFindAll2() {
         System.out.println("in after");
         List<Star> star4 = starRepository.findAll();
-        assertTrue(star4.size() == 28);
+        star4Count = star4.size();
+        assertTrue(star4Count == star1Count);
         //Hamcrest assertion:
         //assertThat(wrecks.size(), is(greaterThanOrEqualTo(0)));
         //assertThat(wrecks2.size(), is(equalTo(2)));
