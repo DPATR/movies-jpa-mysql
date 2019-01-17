@@ -47,6 +47,7 @@ public class MovieIntegrationTests {
             movie2.setTitle("Junit Movie Integration Test");
             movie2.setYear(2018);
             movie2.setImage_url("test.jpg");
+            movie2.setVideo_url("test.jpg");
             movie2.setCertificate("PG-13");
             movie2.setRuntime(115);
             movie2.setImdb_rating((float) 8.5);

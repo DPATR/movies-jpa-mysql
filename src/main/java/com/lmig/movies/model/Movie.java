@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 //import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,9 +31,11 @@ public class Movie {
     private String title;
     private Integer year;
     private String image_url;
+    private String video_url;
     private String certificate;
     private Integer runtime;
     private Float imdb_rating;
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
     private Integer metascore;
     private Integer votes;
@@ -86,6 +89,14 @@ public class Movie {
 
     public void setImage_url(String image_url) {
         this.image_url = image_url;
+    }
+    
+    public String getVideo_url() {
+        return video_url;
+    }
+
+    public void setVideo_url(String video_url) {
+        this.video_url = video_url;
     }
 
     public String getCertificate() {

@@ -3,6 +3,7 @@ package com.lmig.movies.model;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,6 +22,7 @@ public class Star {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    @Column(name = "about", columnDefinition = "TEXT")
     private String about;
     
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
